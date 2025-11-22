@@ -55,6 +55,25 @@ const Marquee = ({
     };
   }, []);
 
+  // On mobile or when reduced-motion is requested, render a lightweight static fallback
+  if (!animate) {
+    return (
+      <div
+        ref={containerRef}
+        className={`overflow-hidden w-full h-20 md:h-[100px] flex items-center uppercase whitespace-nowrap ${className}`}
+      >
+        <div className="w-full px-6 text-center font-light text-sm md:text-base">
+          {items.map((text, idx) => (
+            <span key={idx} className="inline-block px-2">
+              {text}
+              {idx < items.length - 1 ? <span className="mx-2">•</span> : null}
+            </span>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       ref={containerRef}
