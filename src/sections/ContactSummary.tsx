@@ -35,7 +35,7 @@ const ContactSummary = () => {
         start: "center center",
         end: "+=800 center",
         scrub: 1.5,
-        pin: false,
+        pin: true,
         pinSpacing: true,
         markers: false,
       },

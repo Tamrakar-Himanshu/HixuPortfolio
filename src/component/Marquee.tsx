@@ -123,11 +123,18 @@ const Marquee = ({
 }: MarqueeProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const itemsRef = useRef<HTMLSpanElement[]>([]);
+  // detect touch devices / mobile. Component is client-side so window is available.
+  const isTouch =
+    typeof window !== "undefined" &&
+    ("ontouchstart" in window || navigator.maxTouchPoints > 0);
 
   useEffect(() => {
+    // On touch devices use CSS fallback (see render duplication). Skip GSAP to avoid
+    // heavy layout reads/animations that can hang mobile browsers.
+    if (isTouch) return;
+
     if (!itemsRef.current.length) return;
 
-    /** FIX: Timeline stored in const = valid for cleanup */
     const tl = horizontalLoop(itemsRef.current, {
       repeat: -1,
       paddingRight: 30,
@@ -156,23 +163,45 @@ const Marquee = ({
       tl.kill();
       observer.kill();
     };
-  }, [items, reverse]);
+  }, [items, reverse, isTouch]);
 
   return (
     <div
       ref={containerRef}
       className={`overflow-hidden w-full h-20 md:h-[100px] flex items-center uppercase whitespace-nowrap ${className}`}
     >
-      <div className="flex">
-        {items.map((text, index) => (
-          <span
-            key={index}
-            ref={(el:any) => el && (itemsRef.current[index] = el)}
-            className="flex items-center px-16 gap-x-32"
-          >
-            {text} <Icon icon={icon} className={iconClassName} />
-          </span>
-        ))}
+      {/*
+        For touch devices we render the items duplicated and use a CSS keyframe
+        animation on the inner track to avoid heavy JS-driven layout and make
+        the marquee smooth on mobile. For non-touch (desktop) we keep the
+        GSAP-driven implementation and attach refs.
+      */}
+      <div
+        className={isTouch ? "marquee-track-wrapper w-full" : "flex"}
+        style={isTouch ? { overflow: "hidden" } : undefined}
+      >
+        <div
+          className={isTouch ? "marquee-track" : "flex"}
+          // inline style to control duration + direction on mobile
+          style={
+            isTouch
+              ? {
+                  animationDuration: `${Math.max(8, items.length * 1.6)}s`,
+                  animationDirection: reverse ? "reverse" : "normal",
+                }
+              : undefined
+          }
+        >
+          {(isTouch ? [...items, ...items] : items).map((text, index) => (
+            <span
+              key={index}
+              ref={!isTouch ? ((el: any) => el && (itemsRef.current[index] = el)) : undefined}
+              className="flex items-center px-16 gap-x-32"
+            >
+              {text} <Icon icon={icon} className={iconClassName} />
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );

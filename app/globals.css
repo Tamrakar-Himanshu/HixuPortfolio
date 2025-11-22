@@ -137,3 +137,37 @@ body {
 @utility contact-text-responsive {
   @apply text-[42px] sm:text-[52px] md:text-[62px] lg:text-[100px];
 }
+
+/* Marquee mobile fallback styles */
+.marquee-track-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  will-change: transform;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  /* duration and direction are set inline from component for flexibility */
+}
+
+.marquee-track > span {
+  flex: 0 0 auto;
+}
+
+@keyframes marquee-track-move {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Apply the default move animation name so component can just set duration */
+.marquee-track {
+  animation-name: marquee-track-move;
+}
