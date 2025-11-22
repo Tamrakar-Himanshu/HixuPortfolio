@@ -31,6 +31,16 @@ const AnimatedHeaderSection: React.FC<AnimatedHeaderProps> = ({
 
   useGSAP(
     () => {
+      if (typeof window === "undefined") return;
+
+      const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const mqMobile = window.matchMedia("(max-width: 767px)");
+
+      // Skip heavy entrance animations on mobile or when user prefers reduced motion
+      if (mqReduce.matches || mqMobile.matches) {
+        return;
+      }
+
       const tl = gsap.timeline({
         scrollTrigger: withScrollTrigger
           ? {

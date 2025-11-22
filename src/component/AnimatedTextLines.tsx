@@ -20,6 +20,14 @@ export const AnimatedTextLines: React.FC<AnimatedTextLinesProps> = ({
   const lines = text.split("\n").filter((line) => line.trim() !== "");
 
   useGSAP(() => {
+    if (typeof window === "undefined") return;
+
+    const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mqMobile = window.matchMedia("(max-width: 767px)");
+
+    // Skip staggered entrance animations on mobile or when reduced motion is requested
+    if (mqReduce.matches || mqMobile.matches) return;
+
     if (lineRefs.current.length > 0) {
       gsap.from(lineRefs.current, {
         y: 100,
