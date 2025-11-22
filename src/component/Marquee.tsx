@@ -136,7 +136,7 @@ const Marquee = ({
 
     const observer = Observer.create({
       onChangeY(self) {
-        let factor = 5.5;
+        let factor = 2.5;
         if ((!reverse && self.deltaY < 0) || (reverse && self.deltaY > 0)) {
           factor *= -1;
         }
