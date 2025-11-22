@@ -42,7 +42,7 @@ function horizontalLoop(
   const xPercents: number[] = [];
 
   let curIndex = 0;
-  const pixelsPerSecond = (config.speed || 1) * 100;
+  const pixelsPerSecond = (config.speed || 1) * 200;
 
   const snap =
     config.snap === false
@@ -135,7 +135,21 @@ const Marquee = ({
     });
 
     const observer = Observer.create({
-     
+      onChangeY(self) {
+        let factor = 1.5;
+        if ((!reverse && self.deltaY < 0) || (reverse && self.deltaY > 0)) {
+          factor *= -1;
+        }
+
+        const anim = gsap.timeline();
+        anim
+          .to(tl, {
+            timeScale: factor * 1.5,
+            duration: 0.2,
+            overwrite: true,
+          })
+          .to(tl, { timeScale: factor / 1.5, duration: 1 }, "+=0.3");
+      },
     });
 
     return () => {
