@@ -16,14 +16,6 @@ WE’D love to hear from you and discus further!`;
   const items = Array(5).fill("just imagine, I code");
 
   useGSAP(() => {
-    if (typeof window === "undefined") return;
-
-    const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const mqMobile = window.matchMedia("(max-width: 767px)");
-
-    // Skip these entrance animations on mobile or when reduced motion is requested
-    if (mqReduce.matches || mqMobile.matches) return;
-
     gsap.from(".social-link", {
       y: 80,
       opacity: 0,
