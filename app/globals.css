@@ -171,3 +171,11 @@ body {
 .marquee-track {
   animation-name: marquee-track-move;
 }
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation-play-state: paused !important;
+    animation: none !important;
+  }
+}

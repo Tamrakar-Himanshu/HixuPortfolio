@@ -34,7 +34,7 @@ const ContactSummary = () => {
         trigger: containerRef.current,
         start: "center center",
         end: "+=800 center",
-        scrub: 1.5,
+        scrub: 0.5,
         pin: true,
         pinSpacing: true,
         markers: false,

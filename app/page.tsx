@@ -57,7 +57,7 @@ export default function Home() {
         <Services />
         <About />
         <Works />
-        {/* <ContactSummary /> */}
+        <ContactSummary />
         <Contact />
       </div>
     </ReactLenis>
