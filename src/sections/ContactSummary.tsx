@@ -29,17 +29,32 @@ const ContactSummary = () => {
   useGSAP(() => {
     if (!containerRef.current) return;
 
-    gsap.to(containerRef.current, {
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "center center",
-        end: "+=800 center",
-        scrub: 0.5,
-        pin: true,
-        pinSpacing: true,
-        markers: false,
-      },
-    });
+    if (typeof window === "undefined") return;
+
+    const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mqMobile = window.matchMedia("(max-width: 767px)");
+
+    // Skip heavy scroll pinning on mobile or when user prefers reduced motion
+    if (mqReduce.matches || mqMobile.matches) {
+      return;
+    }
+
+    const st = {
+      trigger: containerRef.current,
+      start: "center center",
+      end: "+=800 center",
+      scrub: 0.5,
+      pin: true,
+      pinSpacing: true,
+      markers: false,
+    };
+
+    const tween = gsap.to(containerRef.current, { scrollTrigger: st });
+
+    return () => {
+      const tt = tween as unknown as { scrollTrigger?: { kill: () => void } };
+      if (tt.scrollTrigger) tt.scrollTrigger.kill();
+    };
   }, []);
 
   return (
