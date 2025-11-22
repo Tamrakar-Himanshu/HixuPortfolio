@@ -8,6 +8,7 @@ import { useRef, useState, MutableRefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -149,7 +150,7 @@ const Works = () => {
             onMouseLeave={() => handleMouseLeave(index)}
           >
             <div
-              ref={(el:any) => (overlayRefs.current[index] = el)}
+              ref={(el: any) => (overlayRefs.current[index] = el)}
               className="absolute inset-0 hidden md:block duration-200 bg-black -z-10 clip-path"
             />
 
@@ -174,15 +175,19 @@ const Works = () => {
             </div>
 
             <div className="relative flex items-center justify-center px-10 md:hidden h-[400px]">
-              <img
+              <Image
                 src={project.bgImage}
                 alt={`${project.name}-bg-image`}
                 className="object-cover w-full h-full rounded-md brightness-50"
+                width={450}
+                height={400}
               />
-              <img
+              <Image
                 src={project.image}
                 alt={`${project.name}-image`}
                 className="absolute bg-center px-14 rounded-xl"
+                width={450}
+                height={400}
               />
             </div>
           </div>
@@ -193,10 +198,12 @@ const Works = () => {
           className="fixed -top-2/6 left-0 z-50 overflow-hidden border-8 border-black pointer-events-none w-[960px] hidden md:block opacity-0"
         >
           {currentIndex !== null && (
-            <img
+            <Image
               src={projects[currentIndex].image}
               alt="preview"
               className="object-cover w-full h-full"
+              width={450}
+              height={600}
             />
           )}
         </div>

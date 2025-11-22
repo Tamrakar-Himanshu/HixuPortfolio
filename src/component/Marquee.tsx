@@ -123,14 +123,12 @@ const Marquee = ({
 }: MarqueeProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const itemsRef = useRef<HTMLSpanElement[]>([]);
-  // detect touch devices / mobile. Component is client-side so window is available.
   const isTouch =
     typeof window !== "undefined" &&
     ("ontouchstart" in window || navigator.maxTouchPoints > 0);
 
   useEffect(() => {
-    // On touch devices use CSS fallback (see render duplication). Skip GSAP to avoid
-    // heavy layout reads/animations that can hang mobile browsers.
+
     if (isTouch) return;
 
     if (!itemsRef.current.length) return;
@@ -170,12 +168,6 @@ const Marquee = ({
       ref={containerRef}
       className={`overflow-hidden w-full h-20 md:h-[100px] flex items-center uppercase whitespace-nowrap ${className}`}
     >
-      {/*
-        For touch devices we render the items duplicated and use a CSS keyframe
-        animation on the inner track to avoid heavy JS-driven layout and make
-        the marquee smooth on mobile. For non-touch (desktop) we keep the
-        GSAP-driven implementation and attach refs.
-      */}
       <div
         className={isTouch ? "marquee-track-wrapper w-full" : "flex"}
         style={isTouch ? { overflow: "hidden" } : undefined}

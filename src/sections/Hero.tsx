@@ -21,7 +21,7 @@ results driven webs/apps`;
       />
       <figure
         className="absolute inset-0 -z-50"
-        style={{ width: "100vw", height: "140vh" }}
+        style={{ width: "100vw", height: "130vh" }}
       >
         <Canvas
           shadows
@@ -29,7 +29,7 @@ results driven webs/apps`;
         >
           <ambientLight intensity={4.5} />
           <Float speed={1.5}>
-            <Planet scale={isMobile ? 0.7 : 1} />
+            <Planet scale={isMobile ? 0.4 : 1} />
           </Float>
           <Environment resolution={256}>
             <group rotation={[-Math.PI / 3, 4, 1]}>
