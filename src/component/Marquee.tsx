@@ -4,10 +4,13 @@
 
 import { Icon } from "@iconify/react";
 import gsap from "gsap";
-import { Observer } from "gsap/all";
+import { Observer } from "gsap/Observer";
 import { useEffect, useRef } from "react";
 
-gsap.registerPlugin(Observer);
+// Register Observer only once
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(Observer);
+}
 
 interface MarqueeProps {
   items: string[];
