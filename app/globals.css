@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/* -----------------------------------------
+   THEME VARIABLES
+------------------------------------------ */
+@theme {
+  --color-primary: #e5e5e0;
+  --color-DarkLava: #393632;
+  --color-SageGray: #8b8b73;
+  --color-gold: #cfa355;
+
+  --font-amiamie: "Amiamie", sans-serif;
+  --font-amiamie-round: "Amiamie-Round", sans-serif;
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+}
+
+/* -----------------------------------------
+   GLOBAL BODY STYLES
+------------------------------------------ */
+body {
+  background: var(--color-primary);
+  color: black;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  font-family: var(--font-amiamie);
+}
+
+/* -----------------------------------------
+   CUSTOM UTILITIES
+------------------------------------------ */
+
+/* Clip-path utility */
+@utility clip-path {
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+}
+
+/* Banner text responsive utility */
+@utility banner-text-responsive {
+  @apply text-[68px] sm:text-[118px] md:text-[126px] lg:text-[152px]
+         leading-[72px] sm:leading-[88px] lg:leading-[104px];
+}
+
+/* Value section text */
+@utility value-text-responsive {
+  @apply text-[24px] md:text-[26px] lg:text-[32px];
+}
+
+/* Marquee text */
+@utility marquee-text-responsive {
+  @apply text-[28px] sm:text-[36px] lg:text-[42px];
+}
+
+/* Contact section text */
+@utility contact-text-responsive {
+  @apply text-[42px] sm:text-[52px] md:text-[62px] lg:text-[100px];
+}
+
+/* -----------------------------------------
+   MARQUEE FALLBACK FOR MOBILE
+------------------------------------------ */
+.marquee-track-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  will-change: transform;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-name: marquee-track-move;
+}
+
+.marquee-track > span {
+  flex: 0 0 auto;
+}
+
+@keyframes marquee-track-move {
+    0% {
+      transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
+    animation-play-state: paused !important;
+  }
+}
