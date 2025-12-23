@@ -25,7 +25,8 @@ results driven webs/apps`;
         style={{ width: "100vw", height: "130vh" }}
       >
         <Canvas
-          shadows
+          shadows={!isMobile}
+          dpr={[1, 2]}
           camera={{ position: [0, 0, -10], fov: 17.5, near: 1, far: 20 }}
         >
           <ambientLight intensity={4.5} />

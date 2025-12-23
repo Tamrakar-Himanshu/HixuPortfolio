@@ -26,10 +26,12 @@ export default function Home() {
 
   // Lenis smooth scrolling
   useEffect(() => {
+    // Only enable Lenis on desktop
+    if (window.innerWidth < 768) return;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => t,
-
     });
 
     function raf(time: number) {
