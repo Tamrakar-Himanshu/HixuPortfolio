@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useProgress } from "@react-three/drei";
-import { ReactLenis } from "@studio-freight/react-lenis";
+import Lenis from "lenis";
 
 import Navbar from "@/src/sections/Navbar";
 import Hero from "@/src/sections/Hero";
@@ -17,18 +17,33 @@ export default function Home() {
   const { progress } = useProgress();
   const [isReady, setIsReady] = useState(false);
 
+  // Loader state
   useEffect(() => {
     if (progress >= 100) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsReady(true);
     }
   }, [progress]);
 
+  // Lenis smooth scrolling
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => t,
+
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => lenis.destroy();
+  }, []);
+
   return (
-    <ReactLenis
-      root
-      className="relative w-screen min-h-screen overflow-x-hidden"
-    >
+    <div className="relative w-screen min-h-screen overflow-x-hidden">
       {/* Loader */}
       {!isReady && (
         <div className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black text-white transition-opacity duration-700 font-light">
@@ -45,7 +60,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* Content */}
+      {/* Page Content */}
       <div
         className={`transition-opacity duration-1000 ${isReady ? "opacity-100" : "opacity-0"
           }`}
@@ -59,6 +74,6 @@ export default function Home() {
         <ContactSummary />
         <Contact />
       </div>
-    </ReactLenis>
+    </div>
   );
 }
