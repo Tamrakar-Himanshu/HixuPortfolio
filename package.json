@@ -11,8 +11,8 @@
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@iconify/react": "^6.0.2",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.4.0",
+    "@react-three/drei": "^9.100.0",
+    "@react-three/fiber": "^8.16.0",
     "@studio-freight/lenis": "^1.0.42",
     "@studio-freight/react-lenis": "^0.0.47",
     "gsap": "^3.13.0",
