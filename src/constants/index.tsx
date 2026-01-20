@@ -90,7 +90,7 @@ export const projects = [
     name: "QAMICO GAMING THEME",
     description:
       "An e-commerce platform for Apple products and accessories with deals and category filtering.",
-    href: "",
+    href: "https://studio-hixu.vercel.app/",
     image: "/assets/projects/gamin.png",
     bgImage: "/assets/backgrounds/map.jpg",
     frameworks: [
@@ -101,29 +101,15 @@ export const projects = [
     ],
   },
 
-  {
-    id: 5,
-    name: "Home Decor Marketplace",
-    description:
-      "A curated collection of designer home decor items, including furniture and artisan vases.",
-    href: "",
-    image: "/assets/projects/home-decor-store.jpg",
-    bgImage: "/assets/backgrounds/table.jpg",
-    frameworks: [
-      { id: 1, name: "Angular" },
-      { id: 2, name: "Firebase" },
-      { id: 3, name: "GraphQL" },
-      { id: 4, name: "Material UI" },
-    ],
-  },
+ 
 
   {
     id: 6,
-    name: "Digital Game Store",
+    name: "Digital Movie Store",
     description:
       "A gaming platform featuring discounted titles, top sellers, and genre-based browsing.",
-    href: "",
-    image: "/assets/projects/game-store.jpg",
+    href: "https://hixu-moveies.vercel.app/",
+    image: "/assets/projects/game-store1.jpg",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
       { id: 1, name: "Svelte" },

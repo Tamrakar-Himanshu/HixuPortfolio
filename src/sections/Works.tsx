@@ -9,6 +9,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,6 +23,7 @@ interface ProjectItem {
   name: string;
   bgImage: string;
   image: string;
+  href: string;
   frameworks: FrameworkItem[];
 }
 
@@ -142,57 +144,63 @@ const Works = () => {
         onMouseMove={handleMouseMove}
       >
         {projects.map((project: ProjectItem, index: number) => (
-          <div
+          <Link
+            href={project.href || "#"}
             key={project.id}
-            id="project"
-            className="relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0"
-            onMouseEnter={() => handleMouseEnter(index)}
-            onMouseLeave={() => handleMouseLeave(index)}
+            target="_blank"
+            className="block"
           >
             <div
-              ref={(el: HTMLDivElement | null) => { overlayRefs.current[index] = el; }}
-              className="absolute inset-0 hidden md:block duration-200 bg-black -z-10 clip-path"
-            />
-
-            <div className="flex justify-between px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
-              <h2 className="lg:text-[32px] text-[26px] leading-none">
-                {project.name}
-              </h2>
-              <Icon icon="lucide:arrow-up-right" className="md:size-6 size-5" />
-            </div>
-
-            <div className="w-full h-0.5 bg-black/80" />
-
-            <div className="flex px-10 text-xs leading-loose uppercase duration-500 md:text-sm gap-x-5 md:group-hover:px-12">
-              {project.frameworks.map((fw) => (
-                <p
-                  key={fw.id}
-                  className="text-black transition-colors duration-500 md:group-hover:text-white"
-                >
-                  {fw.name}
-                </p>
-              ))}
-            </div>
-
-            <div className="relative flex items-center justify-center px-10 md:hidden h-[400px]">
-              <Image
-                src={project.bgImage}
-                alt={`${project.name}-bg-image`}
-                className="object-cover w-full h-full rounded-md brightness-50"
-                width={450}
-                height={400}
-                sizes="(max-width: 768px) 100vw, 450px"
+              id="project"
+              className="relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0"
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={() => handleMouseLeave(index)}
+            >
+              <div
+                ref={(el: HTMLDivElement | null) => { overlayRefs.current[index] = el; }}
+                className="absolute inset-0 hidden md:block duration-200 bg-black -z-10 clip-path"
               />
-              <Image
-                src={project.image}
-                alt={`${project.name}-image`}
-                className="absolute bg-center px-14 rounded-xl"
-                width={450}
-                height={400}
-                sizes="(max-width: 768px) 100vw, 450px"
-              />
+
+              <div className="flex justify-between px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
+                <h2 className="lg:text-[32px] text-[26px] leading-none">
+                  {project.name}
+                </h2>
+                <Icon icon="lucide:arrow-up-right" className="md:size-6 size-5" />
+              </div>
+
+              <div className="w-full h-0.5 bg-black/80" />
+
+              <div className="flex px-10 text-xs leading-loose uppercase duration-500 md:text-sm gap-x-5 md:group-hover:px-12">
+                {project.frameworks.map((fw) => (
+                  <p
+                    key={fw.id}
+                    className="text-black transition-colors duration-500 md:group-hover:text-white"
+                  >
+                    {fw.name}
+                  </p>
+                ))}
+              </div>
+
+              <div className="relative flex items-center justify-center px-10 md:hidden h-[400px]">
+                <Image
+                  src={project.bgImage}
+                  alt={`${project.name}-bg-image`}
+                  className="object-cover w-full h-full rounded-md brightness-50"
+                  width={450}
+                  height={400}
+                  sizes="(max-width: 768px) 100vw, 450px"
+                />
+                <Image
+                  src={project.image}
+                  alt={`${project.name}-image`}
+                  className="absolute bg-center px-14 rounded-xl"
+                  width={450}
+                  height={400}
+                  sizes="(max-width: 768px) 100vw, 450px"
+                />
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
 
         <div
