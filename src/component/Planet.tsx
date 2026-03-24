@@ -27,6 +27,9 @@ type PlanetProps = React.ComponentProps<"group"> & {
   scale?: number;
 };
 
+// Draco decoder CDN for faster, effortless decoding
+const DRACO_DECODER = "https://www.gstatic.com/draco/versioned/decoders/1.5.7/";
+
 export function Planet({ scale = 1, ...props }: PlanetProps) {
   // References to different parts of the model
   const shapeContainer = useRef<Group>(null!);
@@ -34,7 +37,8 @@ export function Planet({ scale = 1, ...props }: PlanetProps) {
   const ringContainer = useRef<Mesh>(null!);
 
   const { nodes, materials } = useGLTF(
-    "/models/Planet.glb",
+    "/models/Planet-opt.glb",
+    DRACO_DECODER
   ) as unknown as PlanetGLTF;
 
   // GSAP initial animation (runs once)
@@ -74,6 +78,7 @@ export function Planet({ scale = 1, ...props }: PlanetProps) {
 
   // Optional: continuous rotation for spheres and ring
   useFrame((state, delta) => {
+    if (!spheresContainer.current || !ringContainer.current) return;
     spheresContainer.current.rotation.y += delta * 0.1;
     ringContainer.current.rotation.z += delta * 0.05;
   });
@@ -112,5 +117,5 @@ export function Planet({ scale = 1, ...props }: PlanetProps) {
   );
 }
 
-// Preload the GLTF model for faster initial render
-useGLTF.preload("/models/Planet.glb");
+// Preload the GLTF model with Draco support
+useGLTF.preload("/models/Planet-opt.glb", DRACO_DECODER);
