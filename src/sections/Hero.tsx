@@ -7,7 +7,7 @@ import HeroAnimated from "../component/HeroAnimated";
 // This splits the heavy Three.js bundle from the main chunk.
 const Scene3D = dynamic(() => import("./Scene3D"), {
   ssr: false,
-  loading: () => <div className="absolute inset-0 bg-transparent" />,
+  loading: () => <div className="absolute inset-0" />,
 });
 
 const Hero: React.FC = () => {
@@ -18,7 +18,7 @@ results driven webs/apps`;
   return (
     <section
       id="home"
-      className="relative flex flex-col justify-end min-h-screen overflow-hidden"
+      className="relative flex flex-col justify-end min-h-screen overflow-hidden bg-white"
     >
       <HeroAnimated
         subTitle="STATUS: 200 Ready To GO"
