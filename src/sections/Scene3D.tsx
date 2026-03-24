@@ -10,21 +10,16 @@ const Loader = () => {
   const { progress } = useProgress();
   return (
     <Html center>
-      <div className="flex flex-col items-center gap-3 min-w-[200px]">
-        <div className="w-full h-px bg-white/5 rounded-full overflow-hidden">
+      <div className="flex flex-col items-center gap-2 min-w-[200px]">
+        <div className="w-full h-px bg-black/5 rounded-full overflow-hidden">
           <div 
-            className="h-full bg-white transition-all duration-500 ease-out" 
+            className="h-full bg-black transition-all duration-300 ease-out" 
             style={{ width: `${progress}%` }} 
           />
         </div>
-        <div className="flex justify-between w-full">
-          <span className="text-white/30 text-[8px] font-mono tracking-[0.3em] uppercase">
-            Initializing
-          </span>
-          <span className="text-white/50 text-[10px] font-mono tracking-widest">
-            {progress.toFixed(0)}%
-          </span>
-        </div>
+        <span className="text-black/40 text-[9px] font-mono tracking-[0.3em] uppercase">
+          {progress.toFixed(0)}%
+        </span>
       </div>
     </Html>
   );
@@ -67,7 +62,7 @@ export default function Scene3D() {
         antialias: !isMobile,
         stencil: false,
         depth: true,
-        alpha: false // Faster rendering on most browsers
+        alpha: true // Re-enabled for visibility
       }}
     >
       <Scene isMobile={isMobile} />

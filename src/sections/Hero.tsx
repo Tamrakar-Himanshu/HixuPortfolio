@@ -18,15 +18,17 @@ results driven webs/apps`;
   return (
     <section
       id="home"
-      className="relative flex flex-col justify-end min-h-screen overflow-hidden bg-white"
+      className="relative flex flex-col justify-end min-h-screen overflow-hidden bg-primary"
     >
-      <HeroAnimated
-        subTitle="STATUS: 200 Ready To GO"
-        title="DevHIXU"
-        text={text}
-        textColor="text-gray-700"
-      />
-      <figure className="absolute inset-x-0 -top-[15%] h-[130vh] -z-10 pointer-events-none">
+      <div className="relative z-10">
+        <HeroAnimated
+          subTitle="STATUS: 200 Ready To GO"
+          title="DevHIXU"
+          text={text}
+          textColor="text-gray-700"
+        />
+      </div>
+      <figure className="absolute inset-x-0 -top-[15%] h-[130vh] z-0 pointer-events-none">
         <Scene3D />
       </figure>
     </section>
