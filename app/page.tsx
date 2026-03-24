@@ -17,6 +17,15 @@ import CustomCursor from "@/src/component/CustomCursor";
 export default function Home() {
   // Lenis smooth scrolling
   useEffect(() => {
+    // Ultimate Force-Hide Scrollbar via Script Injection
+    const style = document.createElement("style");
+    style.innerHTML = `
+      *::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+      * { scrollbar-width: none !important; -ms-overflow-style: none !important; }
+      html, body { overflow-x: hidden !important; }
+    `;
+    document.head.appendChild(style);
+
     // Only enable Lenis on desktop
     if (window.innerWidth < 768) return;
 

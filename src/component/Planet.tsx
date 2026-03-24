@@ -109,10 +109,17 @@ export function Planet({ scale = 1, ...props }: PlanetProps) {
         castShadow
         receiveShadow
         geometry={nodes.Ring.geometry}
-        material={materials["Material.001"]}
         rotation={[-0.124, 0.123, -0.778]}
         scale={2}
-      />
+      >
+        <meshStandardMaterial 
+          color="#ffd700" 
+          metalness={0.6} 
+          roughness={0.3}
+          emissive="#ffd700"
+          emissiveIntensity={0.1}
+        />
+      </mesh>
     </group>
   );
 }

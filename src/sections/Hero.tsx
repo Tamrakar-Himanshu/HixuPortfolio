@@ -18,7 +18,7 @@ results driven webs/apps`;
   return (
     <section
       id="home"
-      className="relative flex flex-col justify-end min-h-screen overflow-hidden bg-primary"
+      className="relative flex flex-col justify-end min-h-screen bg-primary"
     >
       <div className="relative z-10">
         <HeroAnimated
