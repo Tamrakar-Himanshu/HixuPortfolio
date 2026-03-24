@@ -26,6 +26,7 @@ const HeroAnimated: React.FC<HeroAnimatedProps> = ({
 
   useGSAP(() => {
     const tl = gsap.timeline({
+      delay: 2, // Wait for Preloader to slide up
       scrollTrigger: withScrollTrigger
         ? {
             trigger: contextRef.current!,
@@ -34,9 +35,10 @@ const HeroAnimated: React.FC<HeroAnimatedProps> = ({
     });
 
     tl.from(contextRef.current, {
-      y: "50vh",
-      duration: 1,
-      ease: "circ.out",
+      y: 100,
+      opacity: 0,
+      duration: 1.5,
+      ease: "expo.out",
     });
 
     tl.from(

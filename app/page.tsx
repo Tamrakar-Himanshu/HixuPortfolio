@@ -11,6 +11,8 @@ import About from "@/src/sections/About";
 import Works from "@/src/sections/Works";
 import ContactSummary from "@/src/sections/ContactSummary";
 import Contact from "@/src/sections/Contact";
+import Preloader from "@/src/component/Preloader";
+import CustomCursor from "@/src/component/CustomCursor";
 
 export default function Home() {
   // Lenis smooth scrolling
@@ -35,8 +37,14 @@ export default function Home() {
 
   return (
     <div className="relative w-screen min-h-screen overflow-x-hidden">
+      {/* Preloader - High-end global loader */}
+      <Preloader />
+
+      {/* Modern Cursor System */}
+      <CustomCursor />
+
       {/* Page Content */}
-      <div className="opacity-100">
+      <div className="opacity-100 relative z-10">
         <Navbar />
         <Hero />
         <ServiceSummary />
