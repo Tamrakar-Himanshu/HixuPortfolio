@@ -79,8 +79,8 @@ export function Planet({ scale = 1, ...props }: PlanetProps) {
   // Optional: continuous rotation for spheres and ring
   useFrame((state, delta) => {
     if (!spheresContainer.current || !ringContainer.current) return;
-    spheresContainer.current.rotation.y += delta * 0.1;
-    ringContainer.current.rotation.z += delta * 0.05;
+    spheresContainer.current.rotation.y += delta * 0.4;
+    ringContainer.current.rotation.z += delta * 0.2;
   });
 
   return (
@@ -113,11 +113,10 @@ export function Planet({ scale = 1, ...props }: PlanetProps) {
         scale={2}
       >
         <meshStandardMaterial 
-          color="#ffd700" 
-          metalness={0.6} 
+          color="#FFD700" 
+          metalness={1.15} 
           roughness={0.3}
-          emissive="#ffd700"
-          emissiveIntensity={0.1}
+          envMapIntensity={1}
         />
       </mesh>
     </group>

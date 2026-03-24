@@ -5,7 +5,7 @@
 import { Icon } from "@iconify/react";
 import gsap from "gsap";
 import { Observer } from "gsap/all";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(Observer);
 
@@ -41,7 +41,6 @@ function horizontalLoop(
   const widths: number[] = [];
   const xPercents: number[] = [];
 
-  let curIndex = 0;
   const pixelsPerSecond = (config.speed || 1) * 200;
 
   const snap =
@@ -123,14 +122,15 @@ const Marquee = ({
 }: MarqueeProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const itemsRef = useRef<HTMLSpanElement[]>([]);
-  const isTouch =
-    typeof window !== "undefined" &&
-    ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+  const [mounted, setMounted] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    const touchCheck = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    setIsTouch(touchCheck);
 
-    if (isTouch) return;
-
+    if (touchCheck) return;
     if (!itemsRef.current.length) return;
 
     const tl = horizontalLoop(itemsRef.current, {
@@ -161,7 +161,13 @@ const Marquee = ({
       tl.kill();
       observer.kill();
     };
-  }, [items, reverse, isTouch]);
+  }, [items, reverse]);
+
+  if (!mounted) {
+    return (
+      <div className={`overflow-hidden w-full h-20 md:h-[100px] flex items-center ${className}`} />
+    );
+  }
 
   return (
     <div
@@ -174,7 +180,6 @@ const Marquee = ({
       >
         <div
           className={isTouch ? "marquee-track" : "flex"}
-          // inline style to control duration + direction on mobile
           style={
             isTouch
               ? {
