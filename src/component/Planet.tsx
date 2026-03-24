@@ -46,9 +46,9 @@ export function Planet({ scale = 1, ...props }: PlanetProps) {
     const tl = gsap.timeline();
 
     tl.from(shapeContainer.current.position, {
-      y: 2,
-      duration: 1.5,
-      ease: "power2.out",
+      y: 5,
+      duration: 2,
+      ease: "circ.out",
     });
 
     tl.from(

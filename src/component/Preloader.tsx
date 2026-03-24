@@ -39,8 +39,8 @@ export default function Preloader() {
       });
     }
     
-    if (progress >= 100) {
-      const timer = setTimeout(() => setIsFinished(true), 1200); // Wait a bit more for model stability
+    if (progress === 100) {
+      const timer = setTimeout(() => setIsFinished(true), 800);
       return () => clearTimeout(timer);
     }
   }, [progress, phraseIdx]);
