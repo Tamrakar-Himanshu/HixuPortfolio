@@ -16,17 +16,17 @@ unfair advantage through premium
 results driven webs/apps`;
 
   return (
-    <section id="home" className="flex flex-col justify-end min-h-screen">
+    <section
+      id="home"
+      className="relative flex flex-col justify-end min-h-screen overflow-hidden"
+    >
       <HeroAnimated
-        subTitle="500 Ready To GO"
-        title="Dev HIXU"
+        subTitle="STATUS: 200 Ready To GO"
+        title="DevHIXU"
         text={text}
-        textColor="text-gray-500"
+        textColor="text-gray-700"
       />
-      <figure
-        className="absolute inset-0 -z-50"
-        style={{ width: "100vw", height: "130vh" }}
-      >
+      <figure className="absolute inset-x-0 -top-[15%] h-[130vh] -z-10 pointer-events-none">
         <Scene3D />
       </figure>
     </section>

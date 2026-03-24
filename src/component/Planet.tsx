@@ -22,9 +22,8 @@ type PlanetGLTF = GLTF & {
   };
 };
 
-
 // Props type for R3F group, with optional scale
-type PlanetProps = React.ComponentProps<'group'> & {
+type PlanetProps = React.ComponentProps<"group"> & {
   scale?: number;
 };
 
@@ -34,7 +33,9 @@ export function Planet({ scale = 1, ...props }: PlanetProps) {
   const spheresContainer = useRef<Group>(null!);
   const ringContainer = useRef<Mesh>(null!);
 
-  const { nodes, materials } = useGLTF("/models/Planet.glb") as unknown as PlanetGLTF;
+  const { nodes, materials } = useGLTF(
+    "/models/Planet.glb",
+  ) as unknown as PlanetGLTF;
 
   // GSAP initial animation (runs once)
   useEffect(() => {
@@ -55,7 +56,7 @@ export function Planet({ scale = 1, ...props }: PlanetProps) {
         duration: 10,
         ease: "power1.inOut",
       },
-      "-=25%"
+      "-=25%",
     );
 
     tl.from(
@@ -67,7 +68,7 @@ export function Planet({ scale = 1, ...props }: PlanetProps) {
         duration: 10,
         ease: "power1.inOut",
       },
-      "<"
+      "<",
     );
   }, []);
 
