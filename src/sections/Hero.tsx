@@ -28,9 +28,10 @@ results driven webs/apps`;
           textColor="text-gray-700"
         />
       </div>
-      <figure className="absolute inset-x-0 -top-[15%] h-[130vh] z-0 pointer-events-none">
+      <figure className="absolute inset-x-0 -top-[15%] h-screen md:h-[130vh] z-0 pointer-events-none touch-none" style={{ touchAction: 'none' }}>
         <Scene3D />
       </figure>
+
     </section>
   );
 };

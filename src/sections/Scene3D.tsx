@@ -53,16 +53,17 @@ export default function Scene3D() {
   return (
     <Canvas
       shadows={!isMobile}
-      // Adaptive DPR: 1 for mobile, max 2 for desktop to save GPU
       dpr={isMobile ? 1 : [1, 1.5]}
       camera={{ position: [0, 0, 10], fov: 17.5, near: 1, far: 20 }}
-      // Performance-critical GL properties
+      // Disable R3F's internal event system so touch scroll is not blocked on mobile
+      events={isMobile ? { enabled: false } as any : undefined}
+      style={{ touchAction: "auto" }}
       gl={{ 
         powerPreference: "high-performance",
         antialias: !isMobile,
         stencil: false,
         depth: true,
-        alpha: true // Re-enabled for visibility
+        alpha: true
       }}
     >
       <Scene isMobile={isMobile} />
