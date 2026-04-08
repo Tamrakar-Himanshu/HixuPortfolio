@@ -12,7 +12,7 @@ const Scene3D = dynamic(() => import("./Scene3D"), {
 
 const Hero: React.FC = () => {
   const text: string = `I help growing brands and startups gain an
-unfair advantage through premium
+unfair edge through premium
 results driven webs/apps`;
 
   return (
@@ -28,10 +28,9 @@ results driven webs/apps`;
           textColor="text-gray-700"
         />
       </div>
-      <figure className="absolute inset-x-0 -top-[15%] h-screen md:h-[130vh] z-0 pointer-events-none touch-none" style={{ touchAction: 'none' }}>
+      <figure className="absolute inset-x-0 -top-[15%] h-[130vh] z-0 pointer-events-none">
         <Scene3D />
       </figure>
-
     </section>
   );
 };
