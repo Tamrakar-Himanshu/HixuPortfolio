@@ -80,7 +80,11 @@ Make it fast, make it smooth, make it meaningful.`;
           width={450}
           height={600}
           className="rounded-3xl object-cover"
+          quality={75}
+          sizes="(max-width: 768px) 100vw, 450px"
+          loading="lazy"
         />
+
 
         <AnimatedTextLines
           text={aboutText}

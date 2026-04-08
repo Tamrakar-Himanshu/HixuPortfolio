@@ -35,13 +35,15 @@ function horizontalLoop(
   });
 
   const length = items.length;
+  if (!length) return tl;
+
   const startX = items[0].offsetLeft;
 
   const times: number[] = [];
   const widths: number[] = [];
   const xPercents: number[] = [];
 
-  const pixelsPerSecond = (config.speed || 1) * 200;
+  const pixelsPerSecond = (config.speed || 1) * 100;
 
   const snap =
     config.snap === false
@@ -123,45 +125,54 @@ const Marquee = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const itemsRef = useRef<HTMLSpanElement[]>([]);
   const [mounted, setMounted] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const touchCheck = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-    setIsTouch(touchCheck);
+  }, []);
 
-    if (touchCheck) return;
-    if (!itemsRef.current.length) return;
+  useEffect(() => {
+    if (!mounted) return;
+    
+    // Slight delay to ensure DOM and fonts are ready for measurement
+    const timer = setTimeout(() => {
+      if (!itemsRef.current.length) return;
 
-    const tl = horizontalLoop(itemsRef.current, {
-      repeat: -1,
-      paddingRight: 30,
-      reversed: reverse,
-    });
+      const tl = horizontalLoop(itemsRef.current, {
+        repeat: -1,
+        paddingRight: 60,
+        reversed: reverse,
+        speed: 1,
+      });
 
-    const observer = Observer.create({
-      onChangeY(self) {
-        let factor = 1.5;
-        if ((!reverse && self.deltaY < 0) || (reverse && self.deltaY > 0)) {
-          factor *= -1;
-        }
+      const observer = Observer.create({
+        onChangeY(self) {
+          let factor = 2.5;
+          if ((!reverse && self.deltaY < 0) || (reverse && self.deltaY > 0)) {
+            factor *= -1;
+          }
 
-        const anim = gsap.timeline();
-        anim
-          .to(tl, {
-            timeScale: factor * 1.5,
-            duration: 0.2,
-            overwrite: true,
-          })
-          .to(tl, { timeScale: factor / 1.5, duration: 1 }, "+=0.3");
-      },
-    });
+          gsap.timeline()
+            .to(tl, {
+              timeScale: factor,
+              duration: 0.25,
+              overwrite: true,
+            })
+            .to(tl, { 
+              timeScale: reverse ? -1 : 1, 
+              duration: 1.5,
+              ease: "power2.out"
+            }, "+=0.25");
+        },
+      });
 
-    return () => {
-      tl.kill();
-      observer.kill();
-    };
-  }, [items, reverse]);
+      return () => {
+        tl.kill();
+        observer.kill();
+      };
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [mounted, items, reverse]);
 
   if (!mounted) {
     return (
@@ -174,34 +185,20 @@ const Marquee = ({
       ref={containerRef}
       className={`overflow-hidden w-full h-20 md:h-[100px] flex items-center uppercase whitespace-nowrap ${className}`}
     >
-      <div
-        className={isTouch ? "marquee-track-wrapper w-full" : "flex"}
-        style={isTouch ? { overflow: "hidden" } : undefined}
-      >
-        <div
-          className={isTouch ? "marquee-track" : "flex"}
-          style={
-            isTouch
-              ? {
-                  animationDuration: `${Math.max(8, items.length * 1.6)}s`,
-                  animationDirection: reverse ? "reverse" : "normal",
-                }
-              : undefined
-          }
-        >
-          {(isTouch ? [...items, ...items] : items).map((text, index) => (
-            <span
-              key={index}
-              ref={!isTouch ? ((el: any) => el && (itemsRef.current[index] = el)) : undefined}
-              className="flex items-center px-16 gap-x-32"
-            >
-              {text} <Icon icon={icon} className={iconClassName} />
-            </span>
-          ))}
-        </div>
+      <div className="flex">
+        {items.map((text, index) => (
+          <span
+            key={index}
+            ref={(el: any) => el && (itemsRef.current[index] = el)}
+            className="flex items-center px-16 gap-x-32 marquee-text-responsive"
+          >
+            {text} <Icon icon={icon} className={iconClassName} />
+          </span>
+        ))}
       </div>
     </div>
   );
 };
 
 export default Marquee;
+

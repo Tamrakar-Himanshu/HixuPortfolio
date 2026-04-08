@@ -39,10 +39,19 @@ export default function Preloader() {
       });
     }
     
-    if (progress === 100) {
-      const timer = setTimeout(() => setIsFinished(true), 800);
+    if (progress >= 100) {
+      const timer = setTimeout(() => setIsFinished(true), 500);
       return () => clearTimeout(timer);
     }
+
+    // Safety timeout: if it hasn't finished in 15 seconds, force it.
+    const safetyTimeout = setTimeout(() => {
+      setIsFinished(true);
+    }, 15000);
+
+    return () => {
+      clearTimeout(safetyTimeout);
+    };
   }, [progress, phraseIdx]);
 
   useEffect(() => {
@@ -50,16 +59,18 @@ export default function Preloader() {
       const tl = gsap.timeline();
       tl.to(containerRef.current, {
         yPercent: -100,
-        duration: 1.5,
-        ease: "expo.inOut",
+        duration: 1.2,
+        ease: "power4.inOut",
         onComplete: () => {
           document.body.style.overflow = "auto";
+          // Optional: clear container from DOM if needed, but here we just hide it
         }
       });
     } else {
       document.body.style.overflow = "hidden";
     }
   }, [isFinished]);
+
 
   return (
     <div 
