@@ -8,15 +8,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 const ServiceSummary = () => {
   useGSAP(() => {
-    // Disable parallax scroll animations on mobile to not block native scroll
-    if (typeof window !== "undefined" && window.innerWidth < 768) return;
-
     gsap.to("#title-service-1", {
       xPercent: 20,
       scrollTrigger: {
         trigger: "#title-service-1",
         scrub: true,
-        invalidateOnRefresh: true,
       },
     });
 
@@ -25,7 +21,6 @@ const ServiceSummary = () => {
       scrollTrigger: {
         trigger: "#title-service-2",
         scrub: true,
-        invalidateOnRefresh: true,
       },
     });
 
@@ -34,7 +29,6 @@ const ServiceSummary = () => {
       scrollTrigger: {
         trigger: "#title-service-3",
         scrub: true,
-        invalidateOnRefresh: true,
       },
     });
 
@@ -43,11 +37,9 @@ const ServiceSummary = () => {
       scrollTrigger: {
         trigger: "#title-service-4",
         scrub: true,
-        invalidateOnRefresh: true,
       },
     });
   }, []);
-
 
   return (
     <section className="mt-20 overflow-hidden font-light leading-snug text-center mb-42 contact-text-responsive">
